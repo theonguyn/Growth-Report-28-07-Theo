@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INTL2 Seeding Report — 18–27/07/2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F0F4F8;--card:#fff;--border:#E2E8F0;
+  --navy:#1E3A5F;--navy2:#2D5282;
+  --text:#1A202C;--t2:#4A5568;--t3:#718096;
+  --green:#38A169;--gbg:#F0FFF4;--gl:#C6F6D5;
+  --amber:#D97706;--abg:#FFFBEB;--al:#FDE68A;
+  --red:#E53E3E;--rbg:#FFF5F5;--rl:#FED7D7;
+  --blue:#3182CE;--blbg:#EBF8FF;--bll:#BEE3F8;
+  --pur:#805AD5;--pubg:#FAF5FF;
+}
+body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.5}
+
+/* ─── HEADER ─── */
+.rh{background:var(--navy);color:#fff;padding:22px 32px 18px}
+.rh h1{font-size:19px;font-weight:800;letter-spacing:-.3px;margin-bottom:3px}
+.rh .meta{font-size:12px;color:rgba(255,255,255,.6)}
+
+/* ─── TABS ─── */
+.tabs{background:#fff;border-bottom:1px solid var(--border);padding:0 32px;display:flex}
+.tab-btn{padding:13px 20px;border:none;background:none;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:500;color:var(--t3);border-bottom:2.5px solid transparent;margin-bottom:-1px;transition:.15s}
+.tab-btn.active{color:var(--navy);border-bottom-color:var(--navy)}
+
+/* ─── LAYOUT ─── */
+.tc{display:none;padding:26px 32px}
+.tc.active{display:block}
+.sec{margin-bottom:26px}
+.sec-title{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border)}
+
+/* ─── KPI CARDS ─── */
+.kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:26px}
+.kpi-card{background:#fff;border-radius:10px;padding:18px 20px;border:1px solid var(--border)}
+.kpi-card .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--t3);margin-bottom:7px}
+.kpi-card .val{font-size:30px;font-weight:800;color:var(--text);letter-spacing:-1.5px;margin-bottom:5px}
+.kpi-card .sub{font-size:11.5px;color:var(--t3);margin-bottom:6px}
+.bdg{display:inline-block;font-size:12px;font-weight:700;padding:3px 10px;border-radius:20px}
+.bdg-g{background:var(--gl);color:#276749}
+.bdg-r{background:var(--rl);color:#9B2C2C}
+.bdg-a{background:var(--al);color:#7B341E}
+.bdg-b{background:var(--bll);color:#2C5282}
+
+/* ─── BLOCK HEADER ─── */
+.blk-head{font-size:13px;font-weight:700;color:var(--navy);background:#EEF4FB;padding:9px 14px;border-radius:8px 8px 0 0;border:1px solid #D0DFF0;border-bottom:none;display:flex;align-items:center;gap:7px}
+.blk-body{border:1px solid #D0DFF0;border-radius:0 0 10px 10px;padding:16px;background:#fff}
+
+/* ─── STATS ROW ─── */
+.sr{display:flex;background:#fff;border-radius:8px;border:1px solid var(--border);overflow:hidden;margin-bottom:16px}
+.si{flex:1;padding:12px 14px;border-right:1px solid var(--border)}
+.si:last-child{border-right:none}
+.si .slbl{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--t3);margin-bottom:3px}
+.si .sval{font-size:17px;font-weight:700;color:var(--text);letter-spacing:-.5px}
+
+/* ─── TABLES ─── */
+.tw{overflow-x:auto;border-radius:10px;border:1px solid var(--border)}
+table{width:100%;border-collapse:collapse;background:#fff}
+thead th{background:var(--navy);color:#fff;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;padding:9px 13px;text-align:left;white-space:nowrap}
+thead th:first-child{border-radius:9px 0 0 0}
+thead th:last-child{border-radius:0 9px 0 0}
+tbody tr{border-bottom:1px solid var(--border)}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:#F8FAFC}
+td{padding:8px 13px;color:var(--t2);font-size:12.5px}
+td.num{text-align:right;font-variant-numeric:tabular-nums}
+td.hl{font-weight:600;color:var(--text)}
+tr.mvp-row{background:#ECFDF5}
+
+/* ─── TAG CHIPS ─── */
+.tag{display:inline-block;font-size:10px;padding:2px 7px;border-radius:4px;font-weight:500}
+.ti{background:#DBEAFE;color:#1E40AF}
+.tt{background:#FCE7F3;color:#9D174D}
+.tips{background:#ECFDF5;color:#065F46}
+.rev{background:#F5F3FF;color:#5B21B6}
+.dis{background:#FEF3C7;color:#92400E}
+.emo{background:#FEE2E2;color:#991B1B}
+.con{background:#E0E7FF;color:#3730A3}
+
+/* ─── TWO COL ─── */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.sub-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;margin-bottom:7px}
+.sub-lbl.red{color:#C05621}
+.sub-lbl.dark{color:#9B2C2C}
+.sub-lbl.blue{color:#1E40AF}
+.sub-lbl.pink{color:#9D174D}
+.sub-lbl.grey{color:var(--t3)}
+
+/* ─── INSIGHTS ─── */
+.ins-list{display:flex;flex-direction:column;gap:9px}
+.ins-card{background:#fff;border-radius:8px;border:1px solid var(--border);border-left:4px solid var(--navy);padding:13px 15px}
+.ins-card.risk{border-left-color:var(--red)}
+.ins-card.scale{border-left-color:var(--pur)}
+.ins-num{font-size:9.5px;font-weight:700;text-transform:uppercase;color:var(--navy);margin-bottom:3px}
+.ins-card.risk .ins-num{color:var(--red)}
+.ins-card.scale .ins-num{color:var(--pur)}
+.ins-title{font-weight:600;color:var(--text);margin-bottom:3px;font-size:13px}
+.ins-body{color:var(--t2);font-size:12.5px}
+
+/* ─── ISSUES ─── */
+.iss{background:#fff;border-radius:8px;border:1px solid var(--border);padding:14px 15px;margin-bottom:9px}
+.iss.crit{border-left:4px solid var(--red)}
+.iss.warn{border-left:4px solid var(--amber)}
+.iss-lbl{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px}
+.iss-lbl.r{color:var(--red)}.iss-lbl.a{color:var(--amber)}
+.iss-title{font-weight:600;color:var(--text);margin-bottom:5px;font-size:13px}
+.iss-body{font-size:12.5px;color:var(--t2);margin-bottom:7px}
+.iss-ask{font-size:12px;color:var(--blue);font-style:italic}
+
+/* ─── PROGRESS CARDS ─── */
+.pg-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:26px}
+.pg-card{background:#fff;border-radius:10px;border:1px solid var(--border);padding:15px}
+.pg-name{font-size:10px;font-weight:700;text-transform:uppercase;color:var(--t3);margin-bottom:7px}
+.pg-pct{font-size:26px;font-weight:800;color:var(--text);margin-bottom:3px}
+.pg-count{font-size:11.5px;color:var(--t3);margin-bottom:10px}
+.pb-bg{height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.pb-fill{height:100%;border-radius:3px}
+.fg{background:var(--green)}.fa{background:var(--amber)}.fr{background:var(--red)}
+
+/* ─── GANTT ─── */
+.gantt-wrap{overflow-x:auto;border-radius:10px;border:1px solid var(--border)}
+.gt{width:100%;border-collapse:collapse;background:#fff;min-width:980px}
+.gt th{font-size:10.5px;font-weight:600;padding:8px 5px;text-align:center;white-space:nowrap}
+.gt th.task-col{background:var(--navy);color:#fff;text-align:left;padding-left:13px;width:230px}
+.gt th.st-col{background:var(--navy);color:#fff;width:105px;font-size:10px}
+.gt th.dc{background:var(--navy2);color:rgba(255,255,255,.8);width:38px}
+.gt th.dc.today{background:#D97706;color:#fff}
+.gt td{padding:6px 4px;border-bottom:1px solid var(--border);border-right:1px solid #F1F5F9;font-size:12px}
+.gt td.tn{padding-left:13px;font-weight:500;color:var(--text)}
+.gt td.tn.sub{padding-left:22px;color:var(--t2);font-weight:400}
+.gt tr.gr td{background:#EEF4FB;font-weight:700;font-size:10.5px;text-transform:uppercase;letter-spacing:.4px;color:var(--navy);padding-left:13px}
+.gt .dc-cell{text-align:center}
+.gt .dc-cell.today-col{background:rgba(217,119,6,.07)}
+.gb{height:14px;border-radius:3px;margin:0 auto;width:88%}
+.gb.done{background:var(--green)}
+.gb.ip{background:var(--amber)}
+.gb.ns{background:#CBD5E0}
+.gb.launch{background:var(--red)}
+.st-bdg{display:inline-block;font-size:9.5px;font-weight:600;padding:2px 8px;border-radius:10px;white-space:nowrap}
+.std{background:var(--gl);color:#276749}
+.stp{background:var(--al);color:#7B341E}
+.stn{background:#EDF2F7;color:var(--t3)}
+.legend{display:flex;gap:14px;margin-bottom:12px}
+.leg-item{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--t2)}
+.leg-dot{width:12px;height:12px;border-radius:3px;display:inline-block}
+
+@media(max-width:768px){
+  .kpi-grid,.two,.pg-grid{grid-template-columns:1fr}
+  .tc{padding:18px 16px}
+  .tabs{padding:0 16px}
+  .sr{flex-wrap:wrap}
+  .si{min-width:45%}
+}
+</style>
+</head>
+<body>
+
+<header class="rh">
+  <h1>📊 INTL2 — Seeding Report &nbsp;|&nbsp; TW + HK Market</h1>
+  <div class="meta">Kỳ báo cáo: 18/07 – 27/07/2026 &nbsp;·&nbsp; 10 ngày &nbsp;·&nbsp; Cập nhật: 27/07/2026</div>
+</header>
+
+<nav class="tabs">
+  <button class="tab-btn active" onclick="go('seeding',this)">📈 Seeding Performance</button>
+  <button class="tab-btn" onclick="go('campaign',this)">🚀 Campaign 03/08</button>
+</nav>
+
+<main>
+
+<!-- ════════════ TAB 1: SEEDING ════════════ -->
+<div class="tc active" id="tab-seeding">
+
+  <!-- KPI -->
+  <div class="sec">
+    <div class="sec-title">KPI vs Thực tế — 18/07 → 27/07/2026 (10 ngày)</div>
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="lbl">Total Views (10 ngày)</div>
+        <div class="val">1,466,166</div>
+        <div class="sub">KPI: 1,214,286 &nbsp;·&nbsp; Baseline: 1,092,124</div>
+        <span class="bdg bdg-g">✅ +20.7% vs KPI</span>
+        <span style="margin-left:6px" class="bdg bdg-g">+34.2% vs Baseline</span>
+      </div>
+      <div class="kpi-card">
+        <div class="lbl">Views / Ngày</div>
+        <div class="val">146,617</div>
+        <div class="sub">KPI: 121,429 &nbsp;·&nbsp; Baseline: 109,212</div>
+        <span class="bdg bdg-g">✅ +20.7% vs KPI</span>
+      </div>
+      <div class="kpi-card">
+        <div class="lbl">Viral Posts ≥10K views &nbsp;/&nbsp; Total</div>
+        <div class="val">19 <span style="font-size:18px;font-weight:500;color:var(--t3)">/&nbsp;46</span></div>
+        <div class="sub">Hit rate: 41.3% &nbsp;·&nbsp; Flop (&lt;1K): 4 posts</div>
+        <span class="bdg bdg-g">🔥 41.3% viral hit rate</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Overall -->
+  <div class="sec">
+    <div class="sec-title">Overall — Tổng hợp tất cả formats (Normal + Listing)</div>
+    <div class="tw">
+      <table>
+        <thead><tr>
+          <th>Total Posts</th><th>Total Views</th><th>Avg View</th>
+          <th>Total Eng</th><th>ER</th><th>Viral 🔥</th><th>Flop 💀</th><th>CPM ($)</th>
+        </tr></thead>
+        <tbody><tr>
+          <td class="num hl">46</td>
+          <td class="num hl">1,466,166</td>
+          <td class="num">31,873</td>
+          <td class="num">47,348</td>
+          <td class="num">3.23%</td>
+          <td class="num" style="color:#C05621;font-weight:700">19</td>
+          <td class="num" style="color:#9B2C2C;font-weight:700">4</td>
+          <td class="num">$0.00</td>
+        </tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Normal Seeding -->
+  <div class="sec">
+    <div class="blk-head">🔵 Normal Seeding — 16 posts</div>
+    <div class="blk-body">
+      <div class="sr">
+        <div class="si"><div class="slbl">Total Views</div><div class="sval">716,101</div></div>
+        <div class="si"><div class="slbl">Avg View</div><div class="sval">44,756</div></div>
+        <div class="si"><div class="slbl">ER</div><div class="sval">3.05%</div></div>
+        <div class="si"><div class="slbl">Likes</div><div class="sval">11,840</div></div>
+        <div class="si"><div class="slbl">Comments</div><div class="sval">328</div></div>
+        <div class="si"><div class="slbl">Reposts</div><div class="sval">1,474</div></div>
+        <div class="si"><div class="slbl">Shares</div><div class="sval">8,179</div></div>
+        <div class="si"><div class="slbl">Total Eng</div><div class="sval">21,821</div></div>
+      </div>
+
+      <!-- By Angle -->
+      <div class="sub-lbl grey" style="margin-bottom:8px">Performance by Angle</div>
+      <div class="tw" style="margin-bottom:16px">
+        <table>
+          <thead><tr><th>Angle</th><th>Posts</th><th>Views</th><th>Avg View</th><th>Engage</th><th>ER</th><th>Note</th></tr></thead>
+          <tbody>
+            <tr class="mvp-row">
+              <td class="hl">Tips / Instant-use Hacks</td>
+              <td class="num">7</td><td class="num hl">619,937</td><td class="num hl">88,562</td>
+              <td class="num">18,500</td><td class="num">2.98%</td>
+              <td><span class="bdg bdg-g" style="font-size:11px">🏆 MVP — 86% views</span></td>
+            </tr>
+            <tr>
+              <td>Review / Feature Demo</td>
+              <td class="num">5</td><td class="num">88,400</td><td class="num">17,680</td>
+              <td class="num">3,006</td><td class="num">3.40%</td><td>Backup angle tốt</td>
+            </tr>
+            <tr>
+              <td>Discussion / POV</td>
+              <td class="num">1</td><td class="num">2,300</td><td class="num">2,300</td>
+              <td class="num">106</td><td class="num hl" style="color:var(--green)">4.61%</td><td>ER cao nhất</td>
+            </tr>
+            <tr>
+              <td>Emotion / Reversal</td>
+              <td class="num">2</td><td class="num">4,600</td><td class="num">2,300</td>
+              <td class="num">168</td><td class="num">3.65%</td><td>—</td>
+            </tr>
+            <tr>
+              <td>Contrast / Myth-busting</td>
+              <td class="num">1</td><td class="num">864</td><td class="num">864</td>
+              <td class="num">41</td><td class="num hl" style="color:var(--green)">4.75%</td><td>—</td>
+            </tr>
+            <tr style="color:var(--t3)">
+              <td>Question / Curiosity</td>
+              <td class="num">0</td><td class="num">—</td><td class="num">—</td>
+              <td class="num">—</td><td class="num">—</td><td>Chưa test</td>
+            </tr>
+            <tr style="color:var(--t3)">
+              <td>Lifestyle / Off-topic</td>
+              <td class="num">0</td><td class="num">—</td><td class="num">—</td>
+              <td class="num">—</td><td class="num">—</td><td>Chưa test</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Viral + Flop -->
+      <div class="two">
+        <div>
+          <div class="sub-lbl red">🔥 Top Viral (≥10K views)</div>
+          <div class="tw">
+            <table>
+              <thead><tr><th>Post ID</th><th>Date</th><th>Topic</th><th>Angle</th><th>Views</th><th>Eng</th></tr></thead>
+              <tbody>
+                <tr><td class="hl">tw122</td><td>24/07</td><td><span class="tag ti">IELTS</span></td><td><span class="tag tips">Tips</span></td><td class="num hl">427,000</td><td class="num">13,815</td></tr>
+                <tr><td class="hl">tw123</td><td>26/07</td><td><span class="tag tt">TOEIC</span></td><td><span class="tag tips">Tips</span></td><td class="num">96,700</td><td class="num">1,473</td></tr>
+                <tr><td class="hl">hk111</td><td>20/07</td><td><span class="tag ti">IELTS</span></td><td><span class="tag tips">Tips</span></td><td class="num">67,100</td><td class="num">1,628</td></tr>
+                <tr><td class="hl">hk115</td><td>24/07</td><td><span class="tag ti">IELTS</span></td><td><span class="tag rev">Review</span></td><td class="num">58,500</td><td class="num">1,255</td></tr>
+                <tr><td class="hl">tw116</td><td>20/07</td><td><span class="tag ti">IELTS</span></td><td><span class="tag tips">Tips</span></td><td class="num">19,300</td><td class="num">1,216</td></tr>
+                <tr><td class="hl">tw118</td><td>22/07</td><td><span class="tag tt">TOEIC</span></td><td><span class="tag rev">Review</span></td><td class="num">16,200</td><td class="num">1,135</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div>
+          <div class="sub-lbl dark">💀 Flop (&lt;1K views)</div>
+          <div class="tw">
+            <table>
+              <thead><tr><th>Post ID</th><th>Date</th><th>Topic</th><th>Angle</th><th>Views</th><th>Eng</th></tr></thead>
+              <tbody>
+                <tr><td class="hl">tw117</td><td>19/07</td><td><span class="tag ti">IELTS</span></td><td><span class="tag tips">Tips</span></td><td class="num" style="color:var(--red)">62</td><td class="num">28</td></tr>
+                <tr><td class="hl">tw120</td><td>23/07</td><td><span class="tag tt">TOEIC</span></td><td><span class="tag tips">Tips</span></td><td class="num" style="color:var(--red)">775</td><td class="num">61</td></tr>
+                <tr><td class="hl">tw119</td><td>21/07</td><td><span class="tag ti">IELTS</span></td><td><span class="tag con">Contrast</span></td><td class="num" style="color:var(--red)">864</td><td class="num">41</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Listing Seeding -->
+  <div class="sec">
+    <div class="blk-head">🟢 Listing Seeding (chỉ prep) — 30 posts</div>
+    <div class="blk-body">
+      <div class="sr">
+        <div class="si"><div class="slbl">Total Views</div><div class="sval">750,065</div></div>
+        <div class="si"><div class="slbl">Avg View</div><div class="sval">25,002</div></div>
+        <div class="si"><div class="slbl">ER</div><div class="sval">3.40%</div></div>
+        <div class="si"><div class="slbl">Likes</div><div class="sval">11,051</div></div>
+        <div class="si"><div class="slbl">Comments</div><div class="sval">329</div></div>
+        <div class="si"><div class="slbl">Reposts</div><div class="sval">2,470</div></div>
+        <div class="si"><div class="slbl">Shares</div><div class="sval">11,677</div></div>
+        <div class="si"><div class="slbl">Total Eng</div><div class="sval">25,527</div></div>
+      </div>
+
+      <!-- Top Hooks -->
+      <div class="sub-lbl grey" style="margin-bottom:8px">Top 5 Hooks</div>
+      <div class="two" style="margin-bottom:16px">
+        <div>
+          <div class="sub-lbl blue" style="margin-bottom:6px">🔵 IELTS</div>
+          <div class="tw">
+            <table>
+              <thead><tr><th>Hook</th><th>Posts</th><th>Views</th><th>Eng</th></tr></thead>
+              <tbody>
+                <tr style="background:#EFF6FF"><td class="hl">Ko có tiền đi học...</td><td class="num">5</td><td class="num hl">243,100</td><td class="num">7,969</td></tr>
+                <tr><td>IELTS 7.5 = ...</td><td class="num">4</td><td class="num">226,800</td><td class="num">3,820</td></tr>
+                <tr><td>IELTS targeting...</td><td class="num">5</td><td class="num">146,600</td><td class="num">4,326</td></tr>
+                <tr><td>Tự học IELTS kh...</td><td class="num">3</td><td class="num">74,100</td><td class="num">2,965</td></tr>
+                <tr><td>IELTS 7.5+</td><td class="num">6</td><td class="num">72,200</td><td class="num">2,469</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div>
+          <div class="sub-lbl pink" style="margin-bottom:6px">🟣 TOEIC</div>
+          <div class="tw">
+            <table>
+              <thead><tr><th>Hook</th><th>Posts</th><th>Views</th><th>Eng</th></tr></thead>
+              <tbody>
+                <tr style="background:#FFF0F6"><td class="hl">TOEIC drilling</td><td class="num">10</td><td class="num hl">271,300</td><td class="num">11,673</td></tr>
+                <tr><td>Tự học TOEIC</td><td class="num">4</td><td class="num">180,200</td><td class="num">6,160</td></tr>
+                <tr><td>TOEIC 900+</td><td class="num">4</td><td class="num">72,700</td><td class="num">2,731</td></tr>
+                <tr><td>TOEIC 850+</td><td class="num">2</td><td class="num">54,800</td><td class="num">1,692</td></tr>
+                <tr><td>Kho đề TOEIC</td><td class="num">2</td><td class="num">22,600</td><td class="num">844</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Listing Viral + Flop -->
+      <div class="two">
+        <div>
+          <div class="sub-lbl red" style="margin-bottom:7px">🔥 Top 10 Viral (≥10K views)</div>
+          <div class="tw">
+            <table>
+              <thead><tr><th>Post ID</th><th>Date</th><th>Topic</th><th>Views</th><th>Eng</th><th>ER</th></tr></thead>
+              <tbody>
+                <tr><td class="hl">list079</td><td>25/07</td><td><span class="tag ti">IELTS</span></td><td class="num hl">138,000</td><td class="num">1,940</td><td class="num">1.41%</td></tr>
+                <tr><td class="hl">list062</td><td>20/07</td><td><span class="tag ti">IELTS</span></td><td class="num">61,000</td><td class="num">1,979</td><td class="num">3.24%</td></tr>
+                <tr><td class="hl">list082</td><td>26/07</td><td><span class="tag ti">IELTS</span></td><td class="num">45,800</td><td class="num">1,540</td><td class="num">3.36%</td></tr>
+                <tr><td class="hl">list061</td><td>19/07</td><td><span class="tag tt">TOEIC</span></td><td class="num">39,200</td><td class="num">1,064</td><td class="num">2.71%</td></tr>
+                <tr><td class="hl">list076</td><td>24/07</td><td><span class="tag tt">TOEIC</span></td><td class="num">29,800</td><td class="num">896</td><td class="num">3.01%</td></tr>
+                <tr><td class="hl">list077</td><td>24/07</td><td><span class="tag tt">TOEIC</span></td><td class="num">17,800</td><td class="num">657</td><td class="num">3.69%</td></tr>
+                <tr><td class="hl">list059</td><td>18/07</td><td><span class="tag tt">TOEIC</span></td><td class="num">12,700</td><td class="num">370</td><td class="num">2.91%</td></tr>
+                <tr><td class="hl">list083</td><td>26/07</td><td><span class="tag tt">TOEIC</span></td><td class="num">12,700</td><td class="num">332</td><td class="num">2.61%</td></tr>
+                <tr><td class="hl">list070</td><td>22/07</td><td><span class="tag ti">IELTS</span></td><td class="num">12,500</td><td class="num">289</td><td class="num">2.31%</td></tr>
+                <tr><td class="hl">list064</td><td>20/07</td><td><span class="tag tt">TOEIC</span></td><td class="num">11,300</td><td class="num">422</td><td class="num">3.73%</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div>
+          <div class="sub-lbl dark" style="margin-bottom:7px">💀 Flop</div>
+          <div class="tw">
+            <table>
+              <thead><tr><th>Post ID</th><th>Date</th><th>Topic</th><th>Note</th></tr></thead>
+              <tbody>
+                <tr><td class="hl">list085</td><td>27/07</td><td><span class="tag ti">IELTS</span></td><td style="color:var(--t3);font-size:12px">Mới đăng, chưa đủ data</td></tr>
+                <tr><td class="hl">list086</td><td>27/07</td><td><span class="tag tt">TOEIC</span></td><td style="color:var(--t3);font-size:12px">Mới đăng, chưa đủ data</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Insights -->
+  <div class="sec">
+    <div class="sec-title">💡 Insights & Lesson Learnt</div>
+    <div class="ins-list">
+      <div class="ins-card">
+        <div class="ins-num">Insight 01</div>
+        <div class="ins-title">Tips/Hacks = MVP angle, không thể thiếu</div>
+        <div class="ins-body">7 posts chiếm <strong>619K/716K views = 86%</strong> tổng views Normal seeding, avg view 88K >> tất cả angle còn lại cộng lại. → Duy trì ≥5 Tips/Hacks posts/tuần để giữ view floor ổn định.</div>
+      </div>
+      <div class="ins-card">
+        <div class="ins-num">Insight 02</div>
+        <div class="ins-title">Listing ER cao hơn Normal (3.40% vs 3.05%)</div>
+        <div class="ins-body">Dù avg view thấp hơn (25K vs 44K), Listing tạo engagement tốt hơn — đặc biệt Shares (11,677 vs 8,179). Nên coi Listing là core format song song, không phải chỉ supplement.</div>
+      </div>
+      <div class="ins-card risk">
+        <div class="ins-num">Insight 03 — ⚠️ Risk</div>
+        <div class="ins-title">Concentration risk nghiêm trọng</div>
+        <div class="ins-body">tw122 một mình = <strong>427K/716K = 60% tổng views Normal seeding</strong>. Nếu loại tw122, avg view Normal chỉ còn ~17K — gần bằng Listing. Views/week hiện tại phụ thuộc quá lớn vào việc có viral post tự nhiên hay không.</div>
+      </div>
+      <div class="ins-card">
+        <div class="ins-num">Insight 04</div>
+        <div class="ins-title">Cùng angle, kết quả chênh 6,900 lần</div>
+        <div class="ins-body">tw117 (62 views) và tw122 (427K) đều là Tips/Hacks IELTS-indirect. Content quality và timing là biến số quyết định, không phải angle. → Cần internal review step trước khi schedule.</div>
+      </div>
+      <div class="ins-card scale">
+        <div class="ins-num">Insight 05 — Scale Up</div>
+        <div class="ins-title">TOEIC Drilling = hook mạnh nhất Listing</div>
+        <div class="ins-body">10 posts, 271K views, 11,673 eng. Hook này một mình ≈ tổng cả 5 hooks IELTS top. → Double down tháng 8, không giữ nguyên 10 posts/kỳ.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Issues -->
+  <div class="sec">
+    <div class="sec-title">🚨 Vấn đề đang gặp — Cần brainstorm / góp ý</div>
+    <div class="iss crit">
+      <div class="iss-lbl r">🔴 Critical</div>
+      <div class="iss-title">Issue 1: Variance quá cao, performance khó dự đoán</div>
+      <div class="iss-body">Spread 62 → 427,000 views cùng 1 angle. Chưa có framework đánh giá post nào "có potential" trước khi đăng. Nếu không có viral post tự nhiên, views/week dễ về baseline ~600K.</div>
+      <div class="iss-ask">→ Brainstorm: Có nên thêm internal review step trước khi schedule? Tiêu chí nào để filter post?</div>
+    </div>
+    <div class="iss warn">
+      <div class="iss-lbl a">🟡 Blocking</div>
+      <div class="iss-title">Issue 2: Global accounts bị chặn bởi proxy method chưa chốt</div>
+      <div class="iss-body">Task "Create global seeding accounts" vẫn Not Started do chưa chốt proxy method phù hợp. Bottleneck này ảnh hưởng toàn bộ IELTS Global plan tháng 8.</div>
+      <div class="iss-ask">→ Cần quyết định: Ưu tiên Oxylabs hay Nodemaven cho global? Cần chốt trước 29/07.</div>
+    </div>
+    <div class="iss warn">
+      <div class="iss-lbl a">🟡 Warning</div>
+      <div class="iss-title">Issue 3: Auto-posting chưa sẵn sàng — đang post tay 3–5h/ngày</div>
+      <div class="iss-body">AdsPower đang test, n8n chưa setup. Nếu không xong trước 03/08 → launch vẫn sẽ manual. Chi phí nhân lực cao và không scale được khi thêm global channels.</div>
+      <div class="iss-ask">→ Có nên chốt hard deadline n8n là 31/07, hoặc accept launch tay trong tháng đầu?</div>
+    </div>
+    <div class="iss warn">
+      <div class="iss-lbl a">🟡 Warning</div>
+      <div class="iss-title">Issue 4: Content Production 0% — còn 7 ngày đến Launch Day</div>
+      <div class="iss-body">Content plan IELTS Global mới 10%, Taiwan plan chưa bắt đầu. Không đủ buffer content khi launch 03/08 nếu không push mạnh tuần này.</div>
+      <div class="iss-ask">→ Content plan IELTS Global cần xong trước 29/07. Có cần thêm resource không?</div>
+    </div>
+  </div>
+
+</div><!-- /tab-seeding -->
+
+
+<!-- ════════════ TAB 2: CAMPAIGN ════════════ -->
+<div class="tc" id="tab-campaign">
+
+  <!-- Progress cards -->
+  <div class="sec">
+    <div class="sec-title">Tiến độ tổng — Campaign Launch 03/08/2026</div>
+    <div class="pg-grid">
+      <div class="pg-card">
+        <div class="pg-name">Proxy & Accounts</div>
+        <div class="pg-pct" style="color:var(--amber)">50%</div>
+        <div class="pg-count">3 / 6 tasks done</div>
+        <div class="pb-bg"><div class="pb-fill fa" style="width:50%"></div></div>
+      </div>
+      <div class="pg-card">
+        <div class="pg-name">Post Publishing Automation</div>
+        <div class="pg-pct" style="color:var(--amber)">33%</div>
+        <div class="pg-count">1 / 3 tasks done</div>
+        <div class="pb-bg"><div class="pb-fill fa" style="width:33%"></div></div>
+      </div>
+      <div class="pg-card">
+        <div class="pg-name">Content Production</div>
+        <div class="pg-pct" style="color:var(--red)">0%</div>
+        <div class="pg-count">0 / 4 tasks done</div>
+        <div class="pb-bg"><div class="pb-fill fr" style="width:3%"></div></div>
+      </div>
+      <div class="pg-card">
+        <div class="pg-name">Launch Day 03/08/2026</div>
+        <div class="pg-pct" style="color:var(--t3);font-size:22px">T-6 ngày 🚀</div>
+        <div class="pg-count">0 / 1 done</div>
+        <div class="pb-bg"><div class="pb-fill fr" style="width:0%"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gantt -->
+  <div class="sec">
+    <div class="sec-title">Gantt Chart — 21/07 → 03/08/2026</div>
+    <div class="legend">
+      <span class="leg-item"><span class="leg-dot" style="background:var(--green)"></span>Done</span>
+      <span class="leg-item"><span class="leg-dot" style="background:var(--amber)"></span>In Progress</span>
+      <span class="leg-item"><span class="leg-dot" style="background:#CBD5E0"></span>Not Started</span>
+      <span class="leg-item"><span class="leg-dot" style="background:var(--red)"></span>Launch 🚀</span>
+      <span class="leg-item"><span style="font-size:12px;background:#FDE68A;padding:1px 6px;border-radius:3px;color:#7B341E;font-weight:600">★</span>&nbsp;Today (27/07)</span>
+    </div>
+    <div class="gantt-wrap">
+      <table class="gt">
+        <thead>
+          <tr>
+            <th class="task-col">Task</th>
+            <th class="st-col">Status</th>
+            <th class="dc">21</th>
+            <th class="dc">22</th>
+            <th class="dc">23</th>
+            <th class="dc">24</th>
+            <th class="dc">25</th>
+            <th class="dc">26</th>
+            <th class="dc today">27★</th>
+            <th class="dc">28</th>
+            <th class="dc">29</th>
+            <th class="dc">30</th>
+            <th class="dc">31</th>
+            <th class="dc">1/8</th>
+            <th class="dc">2/8</th>
+            <th class="dc" style="background:#C53030;color:#fff">3/8🚀</th>
+          </tr>
+        </thead>
+        <tbody>
+
+<!-- GROUP 1 -->
+<tr class="gr"><td colspan="16">🔵 PROXY &amp; ACCOUNTS — 3/6 done (50%)</td></tr>
+<tr>
+  <td class="tn sub">Check proxy purchase info</td>
+  <td><span class="st-bdg std">Done</span></td>
+  <td></td><td></td>
+  <td class="dc-cell"><div class="gb done"></div></td>
+  <td></td><td></td><td></td>
+  <td class="dc-cell today-col"></td>
+  <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+  <td class="tn sub">Choose proxy provider (Oxylabs + Nodemaven)</td>
+  <td><span class="st-bdg std">Done</span></td>
+  <td></td><td></td>
+  <td class="dc-cell"><div class="gb done"></div></td>
+  <td></td><td></td><td></td>
+  <td class="dc-cell today-col"></td>
+  <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+  <td class="tn sub">Buy proxies — 573,548 VNĐ</td>
+  <td><span class="st-bdg std">Done</span></td>
+  <td></td><td></td><td></td>
+  <td class="dc-cell"><div class="gb done"></div></td>
+  <td></td><td></td>
+  <td class="dc-cell today-col"></td>
+  <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+  <td class="tn sub">Research proxy method for global accounts</td>
+  <td><span class="st-bdg stp">In Progress</span></td>
+  <td></td><td></td><td></td>
+  <td class="dc-cell"><div class="gb ip"></div></td>
+  <td></td><td></td>
+  <td class="dc-cell today-col"><div class="gb ip"></div></td>
+  <td class="dc-cell"><div class="gb ip"></div></td>
+  <td class="dc-cell"><div class="gb ip"></div></td>
+  <td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+  <td class="tn sub">Create new global seeding accounts (10 countries)</td>
+  <td><span class="st-bdg stn">Not Started</span></td>
+  <td></td><td></td><td></td><td></td><td></td><td></td>
+  <td class="dc-cell today-col"><div class="gb ns"></div></td>
+  <td class="dc-cell"><div class="gb ns"></div></td>
+  <td class="dc-cell"><div class="gb ns"></div></td>
+  <td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+  <td class="tn sub">Farm new global seeding accounts</td>
+  <td><span class="st-bdg stn">Not Started</span></td>
+  <td></td><td></td><td></td><td></td><td></td><td></td>
+  <td class="dc-cell today-col"><div class="gb ns"></div></td>
+  <td class="dc-cell"><div class="gb ns"></div></td>
+  <td class="dc-cell"><div class="gb ns"></div></td>
+  <td class="dc-cell"><div class="gb ns"></div></td>
+  <td class="dc-cell"><div class="gb ns"></div></td>
+  <td></td><td></td><td></td>
+</tr>
+
+<!-- GROUP 2 -->
+<tr class="gr"><td colspan="16">🟡 POST PUBLISHING AUTOMATION — 1/4 done (33%)</td></tr>
+<tr>
+  <td class="tn sub">Research auto-posting tools</td>
+  <td><span class="st-bdg std">Done</span></td>
+  <td></td>
+  <td class="dc-cell"><div class="gb done"></div></td>
+  <td class="dc-cell"><div class="gb done"></div></td>
+  <td class="dc-cell"><div class="gb done"></div></td>
+  <td></td><td></td>
+  <td class="dc-cell today-col"></td>
+  <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+  <td class="tn sub">Choose suitable tool (candidate: AdsPower)</td>
+  <td><span class="st-bdg stp">In Progress</span></td>
+  <td></td><td></td><td></td><td></td><td></td><td></td>
+  <td class="dc-cell today-col"><div class="gb ip"></div></td>
+  <td class="dc-cell"><div class="gb ip"></div></td>
+  <td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+  <td class="tn sub">Set up Warp: AI-agent flow (50%)</td>
+  <td><span class="st-bdg stp">In Progress</span></td>
+  <td></td><td></td><td></td><td></td><td></td><td></td>
+  <td class="dc-cell today-col"><div class="gb ip"></div></td>
+  <td class="dc-cell"><div class="gb ip"></div></td>
+  <td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+  <td class="tn sub">Set up auto-posting automation via n8n</td>
+  <td><span class="st-bdg stn">Not Started</span></td>
+  <td></td><td></td><td></td><td></td><td></td><td></td>
+  <td class="dc-cell today-col"></td>
+  <td class="dc-cell"><div class="gb ns"></div></td>
+  <td class="dc-cell"><div class="gb ns"></div></td>
+  <td></td><td></td><td></td><td></td><td></td>
+</tr>
+
+<!-- GROUP 3 -->
+<tr class="gr"><td colspan="16">🟢 CONTENT PRODUCTION — 0/4 done (0%)</td></tr>
+<tr>
+  <td class="tn sub">Research competitors IELTS global (10%)</td>
+  <td><span class="st-bdg stp">In Progress</span></td>
+  <td></td>
+  <td class="dc-cell"><div class="gb ip"></div></td>
+  <td class="dc-cell"><div class="gb ip"></div></td>
+  <td class="dc-cell"><div class="gb ip"></div></td>
+  <td></td><td></td>
+  <td class="dc-cell today-col"></td>
+  <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+  <td class="tn sub">Build content seeding plan — IELTS Global</td>
+  <td><span class="st-bdg stp">In Progress</span></td>
+  <td></td><td></td><td></td>
+  <td class="dc-cell"><div class="gb ip"></div></td>
+  <td class="dc-cell"><div class="gb ip"></div></td>
+  <td class="dc-cell"><div class="gb ip"></div></td>
+  <td class="dc-cell today-col"><div class="gb ip"></div></td>
+  <td class="dc-cell"><div class="gb ip"></div></td>
+  <td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+  <td class="tn sub">Build content seeding plan — IELTS + TOEIC Taiwan</td>
+  <td><span class="st-bdg stn">Not Started</span></td>
+  <td></td><td></td><td></td><td></td><td></td><td></td>
+  <td class="dc-cell today-col"><div class="gb ns"></div></td>
+  <td class="dc-cell"><div class="gb ns"></div></td>
+  <td class="dc-cell"><div class="gb ns"></div></td>
+  <td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+  <td class="tn sub">Produce 1 week content in advance</td>
+  <td><span class="st-bdg stn">Not Started</span></td>
+  <td></td><td></td><td></td><td></td><td></td><td></td>
+  <td class="dc-cell today-col"></td><td></td>
+  <td class="dc-cell"><div class="gb ns"></div></td>
+  <td class="dc-cell"><div class="gb ns"></div></td>
+  <td class="dc-cell"><div class="gb ns"></div></td>
+  <td></td><td></td><td></td>
+</tr>
+
+<!-- GROUP 4 -->
+<tr class="gr"><td colspan="16">🔴 LAUNCH DAY 03/08/2026</td></tr>
+<tr>
+  <td class="tn sub">Prepare visual materials (Video + Images new UI/UX)</td>
+  <td><span class="st-bdg stn">Not Started</span></td>
+  <td></td><td></td><td></td><td></td><td></td><td></td>
+  <td class="dc-cell today-col"></td><td></td><td></td><td></td><td></td>
+  <td class="dc-cell"><div class="gb ns"></div></td>
+  <td class="dc-cell"><div class="gb ns"></div></td>
+  <td></td>
+</tr>
+<tr>
+  <td class="tn sub" style="font-weight:700;color:var(--red)">🚀 Go-live — all seeding channels active</td>
+  <td><span class="st-bdg stn">Not Started</span></td>
+  <td></td><td></td><td></td><td></td><td></td><td></td>
+  <td class="dc-cell today-col"></td><td></td><td></td><td></td><td></td><td></td><td></td>
+  <td class="dc-cell"><div class="gb launch"></div></td>
+</tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div><!-- /tab-campaign -->
+</main>
+
+<script>
+function go(name,btn){
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tc').forEach(c=>c.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
